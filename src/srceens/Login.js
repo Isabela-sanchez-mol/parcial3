@@ -1,7 +1,24 @@
 import React, {useState} from 'react';
+import firebaseApp from "../firebase/credenciales";
+import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore,doc,setDoc } from 'firebase/firestore'; 
+
+const auth = getAuth (firebaseApp);
 
 function Login() {
   const [isRegistrando, setIsRegistrando] = useState(false);
+  const firestore=getFirestore(firebaseApp);
+
+async function registrarUsuario(email,password,rol){
+  try {
+    const usuarioFirebase = await createUserWithEmailAndPassword(auth, email, password);
+    console.log(usuarioFirebase.user.uid);
+    const docuRef = doc(firestore, `usuarios/${usuarioFirebase.user.uid}`);
+    await setDoc(docuRef, { correo: email, rol: rol });
+  } catch (error) {
+    console.error("Error al registrar usuario:", error);
+  }
+}
 
   function submitHandler(e){
     e.preventDefault();
@@ -12,7 +29,16 @@ function Login() {
     
 
     console.log("submit",email,password,rol);
+
+
+    if(isRegistrando){
+      registrarUsuario(email,password,rol);
+    } else {
+      signInWithEmailAndPassword(auth,email,password);
+    }
+
   }
+
   return (
     <div>
       <h1>{isRegistrando ? "Regístrate" : "Inicia Sesión"}</h1>
