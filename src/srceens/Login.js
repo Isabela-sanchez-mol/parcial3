@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import firebaseApp from "../firebase/credenciales";
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore,doc,setDoc } from 'firebase/firestore'; 
+import '../estilos/index.css'
 
 const auth = getAuth (firebaseApp);
 
@@ -41,29 +42,36 @@ async function registrarUsuario(email,password,rol){
 
   return (
     <div>
-      <h1>{isRegistrando ? "Regístrate" : "Inicia Sesión"}</h1>
-
-      <form onSubmit={submitHandler}>
-        <label>
-          Correo electrónico: <input type="email" id='email'/>
-        </label>
-        <label>
-          Contraseña: <input type="password" id='password'/>
-        </label>
-        <label>
-          Rol: <select id='rol'>
-          <option value="admin">Administrador</option>
-          <option value="user">Usuario</option>
-          </select>
-        </label>
-        <input 
-          type="submit"
-          value={isRegistrando ? "Registrar" : "Iniciar sesión"}
-        />
-      </form>
-      <button onClick={() => setIsRegistrando(!isRegistrando)}>
-        {isRegistrando ? "Ya tengo cuenta" : "Quiero registrarme"}
-      </button>
+      <div className="card">
+        <div className="circle"></div>
+        <div className="circle"></div>
+        <div className="card-inner">
+          <h1>{isRegistrando ? "Regístrate" : "Inicia Sesión"}</h1>
+          <form onSubmit={submitHandler}>
+            <label>
+              Correo electrónico: <input type="email" id='email' />
+            </label>
+            <label>
+              Contraseña: <input type="password" id='password' />
+            </label>
+            <label>
+              Rol: <select id='rol'>
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
+              </select>
+            </label>
+            <input className='button1'
+              type="submit"
+              value={isRegistrando ? "Registrar" : "Iniciar sesión"}
+            />
+          </form>
+          <div className="button-container">
+            <button onClick={() => setIsRegistrando(!isRegistrando)}>
+              {isRegistrando ? "Ya tengo cuenta" : "Quiero registrarme"}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
