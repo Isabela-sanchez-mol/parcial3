@@ -2,7 +2,7 @@
 Este proyecto es una aplicación web que permite la autenticación de usuarios utilizando Firebase y React Router Dom para el enrutamiento de la aplicación.
 
 ### Instalación
-1. Clona el repositorio en tu máquina local:git clone [(https://github.com/Isabela-sanchez-mol/Parcial-2.git)](http://github.com/Isabela-sanchez-mol/Parcial-2.git)
+1. Clona el repositorio en tu máquina local:git clone [(https://github.com/Isabela-sanchez-mol/parcial3.git)](https://github.com/Isabela-sanchez-mol/parcial3.git)
 
 2. Instala las dependencias del proyecto usando npm:
 ### `npm install`
@@ -23,4 +23,3 @@ Esto iniciará un servidor de desarrollo y abrirá la aplicación en tu navegado
 
 ### Licencia
 Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
-
