@@ -32,9 +32,7 @@ function UserView({ torneosIniciales = [], torneosRegistrados = [], onRegistroTo
     <div className="container">
       <div className="navbar">
         <div className="title-and-image">
-          <h3>
-            <img className="simbol" src={tenisImage} alt="Tenis" />
-          </h3>
+          <img className="simbol" src={tenisImage} alt="Tenis" />
         </div>
         <div className="botones">
           <button>Home</button>

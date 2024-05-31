@@ -78,7 +78,6 @@ body::after {
 
 /* Login */
 .card {
-  padding-top: -100px;
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
@@ -159,8 +158,8 @@ form {
 
 #email,
 #password {
-  padding: 15px; 
-  border-radius: 10px;  
+  padding: 15px;
+  border-radius: 10px;
   width: 40%;
   border: none;
 }
@@ -209,20 +208,17 @@ form {
 }
 
 .rol {
-  width: 100%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-items: center;
+  align-self: center;
 }
 
 select {
   padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
   width: 80%;
-  display: flex;
-
+  border-radius: 10px;
 }
 
 h3 {
@@ -268,10 +264,11 @@ h2 {
 
 @keyframes scrollBanner {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0%);
   }
+
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
@@ -352,47 +349,51 @@ h2 {
   text-align: center;
 }
 
+/* Torneos */
 
 .crear-torneo {
-  align-items: center;
-  padding-top: 50px;
   font-family: 'Cabin Condensed', sans-serif;
-  max-width: 300px;
+  width: 300px;
+  max-width: 500px;
   margin: 150px auto 0;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: rgb(255, 255, 255, 0.75);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  align-items: center;
 }
 
 .crear-torneo form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 5px;
 }
 
 .crear-torneo label {
+  font-family: 'Noto Sans', sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
   width: 100%;
 }
 
 .crear-torneo input {
-  width: 90%;
+  font-family: 'Cabin Condensed', sans-serif;
   padding: 10px;
-  margin-top: 5px;
+  border-radius: 10px;
+  width: 80%;
+  border: none;
+  align-self: center;
 }
 
 .crear-torneo .boton {
   font-family: 'Cabin Condensed', sans-serif;
-  background-color: #f0f0f0;
+  background-color: #CCFF33;
   border-radius: 30px;
   width: 200px;
   color: black;
-  height: 60px
+  height: 60px;
 }
 
 .crear-torneo .boton:hover {
@@ -401,7 +402,23 @@ h2 {
 
 .crear-torneo h3 {
   font-family: 'Rubik Mono One', sans-serif;
+  color: black;
   margin-bottom: 20px;
   text-align: center;
   font-size: 24px;
+}
+
+.btnRegistrados {
+  font-family: 'Cabin Condensed', sans-serif;
+  font-size: 20px;
+  background-color: #CCFF33;
+  border-radius: 30px;
+  border: none;
+  width: 200px;
+  color: black;
+  height: 60px;
+}
+
+.btnRegistrados:hover {
+  background-color: #A0C72C;
 }

@@ -34,10 +34,10 @@ function AdminPanel({ onVolver }) {
   return (
     <div className='crear-torneo'>
       <form onSubmit={handleCrearTorneo}>
-      <h3>CREAR TORNEO</h3>
+      <h3>Crear Torneo</h3>
         <label>
           Nombre:
-          <input type="text" value={nuevoTorneo.nombre} onChange={(e) => setNuevoTorneo({ ...nuevoTorneo, nombre: e.target.value })} />
+          <input placeholder="Nombre del torneo" type="text" value={nuevoTorneo.nombre} onChange={(e) => setNuevoTorneo({ ...nuevoTorneo, nombre: e.target.value })} />
         </label>
         <label>
           Fecha límite de inscripción:
@@ -45,7 +45,7 @@ function AdminPanel({ onVolver }) {
         </label>
         <label>
           URL de la imagen:
-          <input type="text" value={nuevoTorneo.imagenURL} onChange={(e) => setNuevoTorneo({ ...nuevoTorneo, imagenURL: e.target.value })} />
+          <input placeholder="Enlace para la imagen" type="text" value={nuevoTorneo.imagenURL} onChange={(e) => setNuevoTorneo({ ...nuevoTorneo, imagenURL: e.target.value })} />
         </label>
         <label>
           Cantidad máxima de participantes:

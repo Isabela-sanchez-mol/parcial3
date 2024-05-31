@@ -121,6 +121,7 @@ function Login() {
       <div className="banner-container">
         <div className="banner">
           <p>ENTRA - REGISTRATE - COMPITE</p>
+          <p> - ENTRA - REGISTRATE - COMPITE</p>
         </div>
       </div>
     </div>

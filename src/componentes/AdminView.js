@@ -83,13 +83,12 @@ function AdminView() {
     <div className="container">
       <div className="navbar">
         <div className="title-and-image">
-          <h3>
-            <span className="destacado">TenisWebApp</span>
-            <img className="simbol" src={tenisImage} alt="Tenis" /> TORNEOS
-            CREADOS
-          </h3>
+          <img className="simbol" src={tenisImage} alt="Tenis" />
         </div>
-        <button  onClick={() => setMostrarFormularioCrear(true)}>Crear Torneo</button>
+        <button>Home</button>
+        <button onClick={() => setMostrarFormularioCrear(true)}>Crear Torneo</button>
+        <button>Contactos</button>
+        <button>Perfil</button>
         <button className="bye" onClick={() => signOut(auth)}>Cerrar sesión</button>
       </div>
 
@@ -98,7 +97,7 @@ function AdminView() {
           <AdminPanel onVolver={() => setMostrarFormularioCrear(false)} />
         ) : (
           <div>
-            <h3>TORNEOS CREADOS</h3>
+            <h3>Torneos Creados</h3>
             <div className="catalogo-torneos">
               {loading ? (
                 <div>Cargando...</div>

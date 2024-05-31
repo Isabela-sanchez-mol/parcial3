@@ -95,7 +95,7 @@ function Home({ user }) {
   return (
     <div className='registrados'>
       <header>
-        <button onClick={toggleSidebar}>Torneos Registrados</button>
+        <button className='btnRegistrados' onClick={toggleSidebar}>Torneos Registrados</button>
       </header>
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <h2>Torneos Registrados</h2>
@@ -112,5 +112,6 @@ function Home({ user }) {
     </div>
   );
 }
+
 
 export default Home;
