@@ -1,5 +1,7 @@
 // Importamos la función para inicializar la aplicación de Firebase
 import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, deleteObject } from "firebase/storage";
+
 
 // Añade aquí tus credenciales
 const firebaseConfig = {
@@ -15,3 +17,21 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 // Exportamos firebaseApp para poder utilizarla en cualquier lugar de la aplicación
 export default firebaseApp;
+
+const app = initializeApp(firebaseConfig);
+
+
+const storage = getStorage(app);
+
+export async function uploadFile(file, txt) {
+    const title = (txt)
+    alert(title)
+    const storageRef = ref(storage, `images/${title}`)
+    return await uploadBytes(storageRef, file)
+}
+
+export async function deleteFile(txt) {
+    var title = (txt)
+    const storageRef = ref(storage, `images/${title}`)
+    return await deleteObject(storageRef)
+}

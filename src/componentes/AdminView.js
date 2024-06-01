@@ -3,6 +3,7 @@ import { getFirestore, collection, getDocs, updateDoc, deleteDoc, doc } from 'fi
 import AdminPanel from '../screens/AdminPanel';
 import { getAuth, signOut } from 'firebase/auth';
 import firebaseApp from '../firebase/credenciales';
+import { uploadFile } from '../firebase/credenciales'; // Asegúrate de tener esta función para subir archivos
 import "../estilos/styles.css";
 import tenisImage from "../img/tenis.png";
 
@@ -21,6 +22,7 @@ function AdminView() {
     maxParticipantes: 0,
     participantesRegistrados: 0
   });
+  const [nuevaImagen, setNuevaImagen] = useState(null);
 
   useEffect(() => {
     const fetchTorneos = async () => {
@@ -46,19 +48,32 @@ function AdminView() {
   const handleGuardarEdicion = async () => {
     try {
       const torneoDoc = doc(firestore, 'torneos', editarTorneoId);
-      await updateDoc(torneoDoc, formularioEdicion);
-      const torneosActualizados = torneos.map(torneo => {
-        if (torneo.id === editarTorneoId) {
-          return { ...torneo, ...formularioEdicion };
-        }
-        return torneo;
-      });
-      setTorneos(torneosActualizados);
+  
+      // Si hay una nueva imagen, sube la imagen y actualiza la URL
+      if (nuevaImagen) {
+        const imageUrl = await uploadFile(nuevaImagen, formularioEdicion.nombre);
+        // Actualizar el estado del formulario de edición con la nueva URL de la imagen
+        setFormularioEdicion(prevState => ({ ...prevState, imagenURL: imageUrl }));
+  
+        // También actualizar en Firestore
+        await updateDoc(torneoDoc, { ...formularioEdicion, imagenURL: imageUrl });
+      } else {
+        await updateDoc(torneoDoc, formularioEdicion);
+      }
+  
+      // Refrescar la lista de torneos después de actualizar
+      const torneosSnapshot = await getDocs(collection(firestore, 'torneos'));
+      const torneosData = torneosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setTorneos(torneosData);
+  
+      // Limpiar el estado de edición
       setEditarTorneoId(null);
+      setNuevaImagen(null); // Resetear la nueva imagen después de guardar
     } catch (error) {
       console.error('Error al editar el torneo:', error);
     }
   };
+  
 
   const handleEliminarTorneo = async (id) => {
     try {
@@ -77,6 +92,17 @@ function AdminView() {
       ...prevState,
       [name]: value
     }));
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setNuevaImagen(e.target.files[0]);
+    }
+  };
+
+  const handleVolver = () => {
+    setEditarTorneoId(null);
+    setNuevaImagen(null);
   };
 
   return (
@@ -106,18 +132,42 @@ function AdminView() {
                   <div className="torneo-item" key={torneo.id}>
                     {editarTorneoId === torneo.id ? (
                       <div>
-                        <input type="text" name="nombre" value={formularioEdicion.nombre} onChange={handleFormularioEdicionChange} />
-                        <input type="date" name="fechaLimite" value={formularioEdicion.fechaLimite} onChange={handleFormularioEdicionChange} />
-                        <input type="text" name="imagenURL" value={formularioEdicion.imagenURL} onChange={handleFormularioEdicionChange} />
-                        <input type="number" name="maxParticipantes" value={formularioEdicion.maxParticipantes} onChange={handleFormularioEdicionChange} />
-                        <input type="number" name="participantesRegistrados" value={formularioEdicion.participantesRegistrados} onChange={handleFormularioEdicionChange} />
+                        <input
+                          type="text"
+                          name="nombre"
+                          value={formularioEdicion.nombre}
+                          onChange={handleFormularioEdicionChange}
+                        />
+                        <input
+                          type="date"
+                          name="fechaLimite"
+                          value={formularioEdicion.fechaLimite}
+                          onChange={handleFormularioEdicionChange}
+                        />
+                        <input
+                          type="number"
+                          name="maxParticipantes"
+                          value={formularioEdicion.maxParticipantes}
+                          onChange={handleFormularioEdicionChange}
+                        />
+                        <input
+                          type="number"
+                          name="participantesRegistrados"
+                          value={formularioEdicion.participantesRegistrados}
+                          onChange={handleFormularioEdicionChange}
+                        />
+                        {formularioEdicion.imagenURL && (
+                          <img src={formularioEdicion.imagenURL} alt="Imagen del torneo" />
+                        )}
+                        <input type="file" onChange={handleImageChange} />
                         <button className="boton" onClick={handleGuardarEdicion}>Guardar</button>
+                        <button className="boton" onClick={handleVolver}>Volver</button>
                       </div>
                     ) : (
                       <div>
                         <div><strong>Nombre:</strong> {torneo.nombre}</div>
                         <div><strong>Fecha límite de inscripción:</strong> {torneo.fechaLimite}</div>
-                        <img src={torneo.imagenURL} alt="Imagen del torneo" />
+                        {torneo.imagenURL && <img src={torneo.imagenURL} alt="Imagen del torneo" />}
                         <div><strong>Cantidad máxima de participantes:</strong> {torneo.maxParticipantes}</div>
                         <div><strong>Participantes registrados:</strong> {torneo.participantesRegistrados}</div>
                         <button className="boton" onClick={() => handleEditarTorneo(torneo.id, torneo)}>Editar</button>
